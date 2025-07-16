@@ -1,21 +1,14 @@
-import random
-import time
-
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from locators import Locators
 import consts
+import urls
+import helpers
 
 class TestRegistration:
 
-    @staticmethod
-    def get_random_email():
-        random.seed(time.time())  # Инициализация датчика случайных чисел текущим временем
-        some_digits = random.randint(1, 999999999)  # Генерируем случайное число от 1 до 999999999
-        return f"v.lukashenko{some_digits}@gmail.com"
-
     def test_user_registration_correct_email(self, driver):
-        driver.get(consts.MAIN_PAGE_URL)
+        driver.get(urls.MAIN_PAGE_URL)
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located(Locators.SING_IN_UP_BUTTON)) # Задаем ожидание на поиск кнопки "Вход и регистрация"
         driver.find_element(*Locators.SING_IN_UP_BUTTON).click() # Найти кнопку "Вход и регистрация" и кликнуть на нее
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located(Locators.LOGIN_REGISTRATION_WINDOW)) # Задаем ожидание для появления модального окна
@@ -24,7 +17,7 @@ class TestRegistration:
 
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located(Locators.REGISTRATION_POPUP_WINDOW_TEXT))
 
-        user_email = self.get_random_email()
+        user_email = helpers.get_random_email()
         user_password = "registered_password"
 
         driver.find_element(*Locators.REGISTRATION_INPUT_EMAIL).send_keys(user_email)
@@ -37,7 +30,7 @@ class TestRegistration:
         assert user_name == "User."
 
     def test_user_registration_failed_email(self, driver):
-        driver.get(consts.MAIN_PAGE_URL)
+        driver.get(urls.MAIN_PAGE_URL)
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located(Locators.SING_IN_UP_BUTTON))  # Задаем ожидание на поиск кнопки "Вход и регистрация"
         driver.find_element(*Locators.SING_IN_UP_BUTTON).click()  # Найти кнопку "Вход и регистрация" и кликнуть на нее
 
@@ -63,7 +56,7 @@ class TestRegistration:
         assert driver.find_element(*Locators.TEXT_ERROR)
 
     def test_user_exist_registration(self, driver):
-        driver.get(consts.MAIN_PAGE_URL)
+        driver.get(urls.MAIN_PAGE_URL)
 
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located(Locators.SING_IN_UP_BUTTON))  # Задаем ожидание на поиск кнопки "Вход и регистрация"
         driver.find_element(*Locators.SING_IN_UP_BUTTON).click()  # Найти кнопку "Вход и регистрация" и кликнуть на нее

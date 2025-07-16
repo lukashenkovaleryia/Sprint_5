@@ -1,14 +1,13 @@
-import time
-
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from locators import Locators, AdvertLocators
 import consts
+import urls
 
 class TestAdvertisementPlacement:
 
     def test_create_message_by_unauthorized_user(self, driver):
-        driver.get(consts.MAIN_PAGE_URL)
+        driver.get(urls.MAIN_PAGE_URL)
 
         driver.find_element(*AdvertLocators.CREATE_AD_BTN).click()
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located(AdvertLocators.TXT_ERROR))
@@ -47,7 +46,7 @@ class TestAdvertisementPlacement:
         publish_btn = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(AdvertLocators.PUBLISH_BTN))
         publish_btn.click()   # Публикация объявления
 
-        driver.get(consts.PROFILE_PAGE_URL)   # Переход на страницу профиля
+        driver.get(urls.PROFILE_PAGE_URL)   # Переход на страницу профиля
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located(AdvertLocators.UPLOADED_IMAGE))
 
         published_ad = WebDriverWait(driver, 10).until(EC.visibility_of_element_located(AdvertLocators.PUBLISHED_AD))
