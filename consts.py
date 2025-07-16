@@ -1,6 +1,3 @@
-MAIN_PAGE_URL = "https://qa-desk.stand.praktikum-services.ru/"
-PROFILE_PAGE_URL = "https://qa-desk.stand.praktikum-services.ru/profile"
-
 STD_TEST_EMAIL = "v.lukashenko@gmail.com"
 STD_TEST_PASSWORD = "busina"
 
